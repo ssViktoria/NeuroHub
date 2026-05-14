@@ -1,0 +1,50 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neurohub-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: neurohub
+  template:
+    metadata:
+      labels:
+        app: neurohub
+    spec:
+      containers:
+      - name: neurohub
+        image: victoria228/neurohub:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          value: "Server=mssql-service;Database=NeuroHubDB;User Id=sa;Password=SuperSecretPass123!;TrustServerCertificate=true;MultipleActiveResultSets=true"
+        - name: UI__SystemBanner
+          valueFrom:
+            configMapKeyRef:
+              name: neurohub-config
+              key: UI__SystemBanner
+        - name: App__BuildVersion
+          valueFrom:
+            configMapKeyRef:
+              name: neurohub-config
+              key: App__BuildVersion
+        - name: Neuro__ApiKey
+          valueFrom:
+            secretKeyRef:
+              name: neurohub-secret
+              key: Neuro__ApiKey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: neurohub-service
+spec:
+  selector:
+    app: neurohub
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080
+  type: NodePort

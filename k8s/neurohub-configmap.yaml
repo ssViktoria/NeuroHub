@@ -1,0 +1,7 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: neurohub-config
+data:
+  UI__SystemBanner: "Вітаємо на NeuroHub - Платформа AI промптів"
+  App__BuildVersion: "Release v2.0.1"
