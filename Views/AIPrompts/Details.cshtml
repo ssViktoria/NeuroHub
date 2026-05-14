@@ -1,0 +1,28 @@
+﻿@model NeuroHub.Models.AIPrompt
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Деталі промпту</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Назва</dt>
+        <dd class="col-sm-10">@Model.Title</dd>
+
+        <dt class="col-sm-2">Текст</dt>
+        <dd class="col-sm-10">@Model.PromptText</dd>
+
+        <dt class="col-sm-2">Нейромережа</dt>
+        <dd class="col-sm-10">@Model.NeuralNetwork</dd>
+
+        <dt class="col-sm-2">Ціна</dt>
+        <dd class="col-sm-10">@Model.Price</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
