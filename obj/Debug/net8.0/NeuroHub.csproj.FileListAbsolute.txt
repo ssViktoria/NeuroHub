@@ -136,5 +136,5 @@ C:\Users\Victoria\source\repos\NeuroHub\NeuroHub\obj\Debug\net8.0\refint\NeuroHu
 C:\Users\Victoria\source\repos\NeuroHub\NeuroHub\obj\Debug\net8.0\NeuroHub.pdb
 C:\Users\Victoria\source\repos\NeuroHub\NeuroHub\obj\Debug\net8.0\NeuroHub.genruntimeconfig.cache
 C:\Users\Victoria\source\repos\NeuroHub\NeuroHub\obj\Debug\net8.0\ref\NeuroHub.dll
-C:\Users\Victoria\source\repos\NeuroHub\NeuroHub\obj\Debug\net8.0\swae.build.ex.cache
 C:\Users\Victoria\source\repos\NeuroHub\NeuroHub\obj\Debug\net8.0\NeuroHub.sourcelink.json
+C:\Users\Victoria\source\repos\NeuroHub\NeuroHub\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

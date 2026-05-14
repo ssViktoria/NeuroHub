@@ -5,78 +5,296 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - NeuroHub</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-        .alert {
-            border-radius: 8px;
-            margin: 10px 0;
+        :root {
+            --primary: #c026d3;
+            --primary-dark: #a21caf;
+            --primary-light: #f0abfc;
+            --secondary: #db2777;
+            --dark: #2d0b2e;
+            --darker: #1a051b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
         }
 
-        .footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            white-space: nowrap;
-            line-height: 60px;
+        body {
+            background: linear-gradient(135deg, #2d0b2e 0%, #4a0e4e 30%, #701a75 60%, #a21caf 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+        }
+
+            /* Декоративні елементи фону */
+            body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path fill="white" d="M50,0 L65,35 L100,35 L72,57 L85,92 L50,72 L15,92 L28,57 L0,35 L35,35 Z"/></svg>') repeat;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+        .navbar {
+            background: rgba(45, 11, 46, 0.95) !important;
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid rgba(192, 38, 211, 0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #f0abfc, #db2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .navbar-nav .nav-link {
+            color: #f3e8ff !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+            border-radius: 20px;
+        }
+
+            .navbar-nav .nav-link:hover {
+                background: rgba(192, 38, 211, 0.3);
+                color: #f0abfc !important;
+                transform: translateY(-2px);
+            }
+
+        .main-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container-main {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Стилі для карток і таблиць */
+        .card-custom {
+            background: white;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+            .card-custom:hover {
+                transform: translateY(-5px);
+            }
+
+        .btn-custom-primary {
+            background: linear-gradient(135deg, #c026d3, #db2777);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+            .btn-custom-primary:hover {
+                transform: scale(1.05);
+                box-shadow: 0 5px 15px rgba(192, 38, 211, 0.4);
+                color: white;
+            }
+
+        .alert-gradient-info {
+            background: linear-gradient(135deg, #c026d3, #a21caf);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .alert-gradient-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .alert-gradient-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        footer {
+            background: rgba(45, 11, 46, 0.95);
+            color: #d8b4fe !important;
+            border-top: 1px solid rgba(192, 38, 211, 0.3);
+            position: relative;
+            z-index: 1;
+            margin-top: 2rem;
+        }
+
+            footer a {
+                color: #f0abfc !important;
+                text-decoration: none;
+            }
+
+                footer a:hover {
+                    color: #db2777 !important;
+                }
+
+        /* Анімація для таблиць */
+        .table-custom {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+            .table-custom thead {
+                background: linear-gradient(135deg, #c026d3, #a21caf);
+                color: white;
+            }
+
+            .table-custom tbody tr:hover {
+                background-color: #fdf2ff;
+                transition: all 0.3s ease;
+            }
+
+        /* Кнопки дій */
+        .btn-sm-warning {
+            background: #f59e0b;
+            border: none;
+            color: white;
+            border-radius: 15px;
+            padding: 5px 12px;
+            margin: 0 2px;
+        }
+
+        .btn-sm-info {
+            background: #06b6d4;
+            border: none;
+            color: white;
+            border-radius: 15px;
+            padding: 5px 12px;
+            margin: 0 2px;
+        }
+
+        .btn-sm-danger {
+            background: #ef4444;
+            border: none;
+            color: white;
+            border-radius: 15px;
+            padding: 5px 12px;
+            margin: 0 2px;
+        }
+
+        h1, h2, h3 {
+            background: linear-gradient(135deg, #c026d3, #db2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        /* Адаптивність */
+        @@media (max-width: 768px) {
+            .container-main {
+                padding: 1rem;
+                margin: 1rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NeuroHub</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-brain me-2"></i>NeuroHub
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                    <span class="navbar-toggler-icon bg-light rounded"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="AIPrompts" asp-action="Index">Промпти</a>
+                            <a class="nav-link" asp-area="" asp-controller="AIPrompts" asp-action="Index">
+                                <i class="fas fa-list-ul me-1"></i>Промпти
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                <i class="fas fa-lock me-1"></i>Privacy
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+    <div class="container main-content">
+        <div class="container-main">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
     </div>
 
     <!-- Системна інформація -->
-    <div class="container mt-4">
+    <div class="container mt-3">
         <div class="row">
             <div class="col-md-12">
-                <div class="alert alert-info">
+                <div class="alert-gradient-info">
+                    <i class="fas fa-bullhorn me-2"></i>
                     <strong>📢 @(ViewBag.SystemBanner ?? "NeuroHub Platform")</strong> |
-                    Версія: @(ViewBag.BuildVersion ?? "Unknown")
+                    <i class="fas fa-code-branch me-1"></i>Версія: @(ViewBag.BuildVersion ?? "Unknown")
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Індикатор ШІ-модуля -->
-    <div class="container mb-3">
+    <div class="container mb-4">
         <div class="row">
             <div class="col-md-12">
                 @{
                     bool? isNeuroEnabled = ViewBag.NeuroApiKeyExists;
                     if (isNeuroEnabled == true)
                     {
-                        <div class="alert alert-success">
+                        <div class="alert-gradient-success">
+                            <i class="fas fa-microchip me-2"></i>
                             ✅ <strong>ШІ-Модуль підключено</strong> (активний)
+                            <i class="fas fa-check-circle ms-2"></i>
                         </div>
                     }
                     else
                     {
-                        <div class="alert alert-danger">
+                        <div class="alert-gradient-danger">
+                            <i class="fas fa-microchip me-2"></i>
                             ❌ <strong>ШІ-Модуль деактивовано</strong> (ключ відсутній)
+                            <i class="fas fa-exclamation-triangle ms-2"></i>
                         </div>
                     }
                 }
@@ -84,11 +302,20 @@
         </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - NeuroHub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer text-muted py-3">
+        <div class="container text-center">
+            <i class="fas fa-heart text-danger me-1"></i>
+            &copy; 2024 - NeuroHub - Ваша платформа AI промптів
+            <i class="fas fa-heart text-danger ms-1"></i>
+            <br />
+            <small>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">
+                    <i class="fas fa-shield-alt me-1"></i>Політика конфіденційності
+                </a>
+            </small>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

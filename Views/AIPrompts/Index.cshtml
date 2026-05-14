@@ -4,34 +4,123 @@
     ViewData["Title"] = "AI Prompts";
 }
 
-<h1>Бібліотека AI промптів</h1>
+<div class="text-center mb-5">
+    <h1 style="background: linear-gradient(135deg, #f0abfc, #db2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: bold;">
+        <i class="fas fa-robot me-3"></i>
+        Бібліотека AI промптів
+    </h1>
+    <p class="text-muted" style="color: #a855f7 !important;">
+        <i class="fas fa-star me-1"></i>
+        Оберіть готовий промпт або створіть свій унікальний запит
+        <i class="fas fa-star ms-1"></i>
+    </p>
+</div>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Створити новий промпт</a>
-</p>
+<div class="mb-4">
+    <a asp-action="Create" class="btn" style="background: linear-gradient(135deg, #c026d3, #db2777); border: none; color: white; border-radius: 25px; padding: 10px 25px; font-weight: bold; transition: all 0.3s ease;">
+        <i class="fas fa-plus-circle me-2"></i>Створити новий промпт
+    </a>
+</div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Назва</th>
-            <th>Нейромережа</th>
-            <th>Ціна</th>
-            <th>Дії</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="table-responsive">
+    <table class="table" style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <thead style="background: linear-gradient(135deg, #c026d3, #a21caf); color: white;">
             <tr>
-                <td>@item.Title</td>
-                <td>@item.NeuralNetwork</td>
-                <td>@(item.Price == 0 ? "Безкоштовно" : item.Price + " грн")</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <th style="padding: 15px;">
+                    <i class="fas fa-tag me-2"></i>Назва
+                </th>
+                <th style="padding: 15px;">
+                    <i class="fas fa-microchip me-2"></i>Нейромережа
+                </th>
+                <th style="padding: 15px;">
+                    <i class="fas fa-coins me-2"></i>Ціна
+                </th>
+                <th style="padding: 15px;">
+                    <i class="fas fa-cogs me-2"></i>Дії
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="transition: all 0.3s ease; border-bottom: 1px solid #f3e8ff;">
+                    <td style="padding: 12px; font-weight: 500;">
+                        <i class="fas fa-file-alt me-2" style="color: #c026d3;"></i>
+                        @item.Title
+                    </td>
+                    <td style="padding: 12px;">
+                        @if (item.NeuralNetwork == "ChatGPT")
+                        {
+                            <span style="background: #10b981; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem;">
+                                <i class="fab fa-chatgpt me-1"></i>ChatGPT
+                            </span>
+                        }
+                        else if (item.NeuralNetwork == "Midjourney")
+                        {
+                            <span style="background: #3b82f6; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem;">
+                                <i class="fas fa-palette me-1"></i>Midjourney
+                            </span>
+                        }
+                        else
+                        {
+                            <span style="background: #06b6d4; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem;">
+                                <i class="fas fa-brain me-1"></i>StableDiffusion
+                            </span>
+                        }
+                    </td>
+                    <td style="padding: 12px;">
+                        @if (item.Price == 0)
+                        {
+                            <span style="color: #10b981; font-weight: bold;">
+                                <i class="fas fa-gift me-1"></i>Безкоштовно
+                            </span>
+                        }
+                        else
+                        {
+                            <span style="color: #f59e0b; font-weight: bold;">
+                                <i class="fas fa-coins me-1"></i>@item.Price грн
+                            </span>
+                        }
+                    </td>
+                    <td style="padding: 12px;">
+                        <a asp-action="Edit" asp-route-id="@item.Id" style="background: #f59e0b; color: white; border: none; border-radius: 15px; padding: 5px 12px; margin: 0 2px; text-decoration: none; display: inline-block; font-size: 0.85rem; transition: all 0.3s ease;">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.Id" style="background: #06b6d4; color: white; border: none; border-radius: 15px; padding: 5px 12px; margin: 0 2px; text-decoration: none; display: inline-block; font-size: 0.85rem; transition: all 0.3s ease;">
+                            <i class="fas fa-info-circle"></i> Details
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" style="background: #ef4444; color: white; border: none; border-radius: 15px; padding: 5px 12px; margin: 0 2px; text-decoration: none; display: inline-block; font-size: 0.85rem; transition: all 0.3s ease;">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    /* Додаткові стилі для ховер ефектів */
+    .table tbody tr:hover {
+        background-color: #fdf2ff !important;
+        transform: scale(1.01);
+        cursor: pointer;
+    }
+
+    .btn:hover, .table tbody tr a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    a[style*="background: #f59e0b"]:hover {
+        background: #d97706 !important;
+    }
+
+    a[style*="background: #06b6d4"]:hover {
+        background: #0891b2 !important;
+    }
+
+    a[style*="background: #ef4444"]:hover {
+        background: #dc2626 !important;
+    }
+</style>
