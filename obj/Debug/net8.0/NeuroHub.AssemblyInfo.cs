@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NeuroHub")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d18fc78bd6743fbf3877b0f7e28f6350c521c022")]
 [assembly: System.Reflection.AssemblyProductAttribute("NeuroHub")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NeuroHub")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
